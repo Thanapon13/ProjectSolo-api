@@ -15,13 +15,6 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           notEmpty: true
         }
-      },
-      category_id: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          notEmpty: true
-        }
       }
     },
     {

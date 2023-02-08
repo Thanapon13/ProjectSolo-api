@@ -9,6 +9,7 @@ const morgan = require("morgan");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 
+const authRote = require("./routes/auth-route");
 const notFoundMiddleware = require("./middleware/not-found");
 const errorMiddleware = require("./middleware/error");
 
@@ -25,6 +26,8 @@ app.use(
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
+
+app.use("/auth", authRote);
 
 app.use(notFoundMiddleware);
 app.use(errorMiddleware);
