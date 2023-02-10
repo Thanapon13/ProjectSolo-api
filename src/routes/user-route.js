@@ -7,10 +7,7 @@ const router = express.Router();
 
 router.patch(
   "/",
-  upload.fields([
-    { name: "profileImage", maxCount: 1 },
-    { name: "coverImage", maxCount: 1 }
-  ]),
+  upload.fields([{ name: "profileImage", maxCount: 1 }]),
   userController.updateProfileImage
 );
 
