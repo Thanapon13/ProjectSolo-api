@@ -10,6 +10,8 @@ const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 
 const authRote = require("./routes/auth-route");
+const userRoute = require("./routes/user-route");
+const authenticateMiddleware = require("./middleware/authenticate");
 const notFoundMiddleware = require("./middleware/not-found");
 const errorMiddleware = require("./middleware/error");
 
@@ -28,6 +30,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/auth", authRote);
+app.use("/users", authenticateMiddleware, userRoute);
 
 app.use(notFoundMiddleware);
 app.use(errorMiddleware);
