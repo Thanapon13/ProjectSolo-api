@@ -1,14 +1,13 @@
 module.exports = (sequelize, DataTypes) => {
-  const Order = sequelize.define(
-    "Order",
+  const Basket = sequelize.define(
+    "Basket",
     {
       quantity: {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
           notEmpty: true
-        },
-        onDelete: "RESTRICT"
+        }
       }
     },
     {
@@ -16,15 +15,15 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  Order.associate = db => {
-    Order.belongsTo(db.Products, {
+  Basket.associate = db => {
+    Basket.belongsTo(db.Products, {
       foreignKey: {
         name: "productId",
         allowNull: false
       },
       onDelete: "RESTRICT"
     });
-    Order.belongsTo(db.User, {
+    Basket.belongsTo(db.User, {
       foreignKey: {
         name: "userId",
         allowNull: false
@@ -32,5 +31,6 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: "RESTRICT"
     });
   };
-  return Order;
+
+  return Basket;
 };

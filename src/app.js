@@ -11,6 +11,9 @@ const rateLimit = require("express-rate-limit");
 
 const authRote = require("./routes/auth-route");
 const userRoute = require("./routes/user-route");
+const productRote = require("./routes/product-route");
+const basketsRote = require("./routes/baskets-route");
+const orderRote = require("./routes/oder-route");
 const authenticateMiddleware = require("./middleware/authenticate");
 const notFoundMiddleware = require("./middleware/not-found");
 const errorMiddleware = require("./middleware/error");
@@ -21,7 +24,7 @@ app.use(morgan("dev"));
 app.use(
   rateLimit({
     windowMs: 1000 * 60 * 15,
-    max: 100,
+    max: 1000,
     message: { message: "to many requests, please try again later" }
   })
 );
@@ -31,6 +34,9 @@ app.use(express.json());
 
 app.use("/auth", authRote);
 app.use("/users", authenticateMiddleware, userRoute);
+app.use("/products", productRote);
+app.use("/baskets", authenticateMiddleware, basketsRote);
+app.use("/order", authenticateMiddleware, orderRote);
 
 app.use(notFoundMiddleware);
 app.use(errorMiddleware);

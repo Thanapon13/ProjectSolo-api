@@ -34,8 +34,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false
       },
-      profileImage: DataTypes.STRING,
-      coverImage: DataTypes.STRING
+      profileImage: DataTypes.STRING
     },
     {
       underscored: true
@@ -64,6 +63,16 @@ module.exports = (sequelize, DataTypes) => {
 
   User.associate = db => {
     User.hasMany(db.Order, {
+      foreignKey: {
+        name: "userId",
+        allowNull: false
+      },
+      onDelete: "RESTRICT"
+    });
+  };
+
+  User.associate = db => {
+    User.hasMany(db.Basket, {
       foreignKey: {
         name: "userId",
         allowNull: false

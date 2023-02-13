@@ -15,12 +15,26 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           notEmpty: true
         }
+      },
+      url: {
+        type: DataTypes.STRING,
+        allowNull: false
       }
     },
     {
-      underscored: true
+      underscored: false
     }
   );
+
+  Products.associate = db => {
+    Products.hasMany(db.Basket, {
+      foreignKey: {
+        name: "basketId ",
+        allowNull: false
+      },
+      onDelete: "RESTRICT"
+    });
+  };
 
   Products.associate = db => {
     Products.belongsTo(db.Order, {
