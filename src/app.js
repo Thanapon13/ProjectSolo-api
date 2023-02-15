@@ -1,5 +1,6 @@
 // const { sequelize } = require("./models");
-// sequelize.sync({ force: true });
+// sequelize.sync({ alter: true });
+// force
 
 require("dotenv").config();
 const express = require("express");
@@ -14,6 +15,7 @@ const userRoute = require("./routes/user-route");
 const productRote = require("./routes/product-route");
 const basketsRote = require("./routes/baskets-route");
 const orderRote = require("./routes/oder-route");
+const shipmentRote = require("./routes/shipment-route");
 const authenticateMiddleware = require("./middleware/authenticate");
 const notFoundMiddleware = require("./middleware/not-found");
 const errorMiddleware = require("./middleware/error");
@@ -37,6 +39,7 @@ app.use("/users", authenticateMiddleware, userRoute);
 app.use("/products", productRote);
 app.use("/baskets", authenticateMiddleware, basketsRote);
 app.use("/order", authenticateMiddleware, orderRote);
+app.use("/shipment", authenticateMiddleware);
 
 app.use(notFoundMiddleware);
 app.use(errorMiddleware);

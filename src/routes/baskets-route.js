@@ -1,5 +1,4 @@
 const basketsController = require("../controllers/baskets-controller");
-const authenticate = require("../middleware/authenticate");
 const express = require("express");
 
 const router = express.Router();

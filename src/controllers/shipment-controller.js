@@ -3,11 +3,9 @@ const { User } = require("../models");
 const createError = require("../utils/create-error");
 const { Op } = require("sequelize");
 const { STATUS_ME } = require("../config/constant");
-// const createError = require("../utils/create-error");
 const cloudinary = require("../utils/cloudinary");
 
-exports.updateProfileImage = async (req, res, next) => {
-  // console.log(req.file, "aaaaa");
+exports.createShipment = async (req, res, next) => {
   console.log(req.file, "aaa");
   try {
     let value;

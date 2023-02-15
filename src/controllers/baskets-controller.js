@@ -10,6 +10,7 @@ exports.addBasket = async (req, res, next) => {
       quantity: 1
     });
     const basKet = await Basket.findAll();
+    // JSON.PARSE  ก็สามารถนำไปใช้งานในการแปลงข้อความ String ต่างๆ ให้เป็น JSON
     const newBasket = JSON.parse(JSON.stringify(basKet)).reduce((acc, curr) => {
       if (!acc[curr.productId]) {
         acc[curr.productId] = { ...curr };
@@ -30,6 +31,7 @@ exports.getCart = async (req, res, next) => {
       where: {
         userId: req.user.id
       },
+
       include: { model: Products }
     });
     res.status(200).json({ getBasket });
@@ -49,10 +51,11 @@ exports.deleteProduct = async (req, res, next) => {
       createError("this post was not found", 400);
     }
     // console.log(remove);
-    if (remove.userId !== req.user.id) {
-      createError("you have no permission to delete this post", 403);
-    }
-    // console.log(remove);
+    // if (remove.userId !== req.user.id) {
+    //   createError("you have no permission to delete this post", 403);
+    // }
+    // console.log(remove);1451: Cannot delete or update a parent row: a foreign key constraint fails (`project_solo`.`baskets`, CONSTRAINT `baskets_ibfk_4` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE)
+
     await remove.destroy();
     res.status(200).json({ message: "Delete success" });
   } catch (err) {
@@ -95,7 +98,7 @@ exports.minusQuantity = async (req, res, next) => {
       },
       raw: true
     });
-    if (quantity > 0) {
+    if (quantity > 1) {
       await Basket.update(
         {
           quantity: quantity - 1
