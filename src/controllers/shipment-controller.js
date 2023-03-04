@@ -1,32 +1,29 @@
 const fs = require("fs");
-const { User } = require("../models");
-const createError = require("../utils/create-error");
-const { Op } = require("sequelize");
-const { STATUS_ME } = require("../config/constant");
+const { Shipment } = require("../models");
 const cloudinary = require("../utils/cloudinary");
 
 exports.createShipment = async (req, res, next) => {
-  console.log(req.file, "aaa");
   try {
     let value;
-    if (req.file) {
-      const profileImage = await cloudinary.upload(
-        req.file.path,
-        req.user.profileImage
-          ? cloudinary.getPublicId(req.user.profileImage)
-          : null
-      );
-      value = { profileImage };
-      console.log(value);
-    }
 
-    await User.update(value, { where: { id: req.user.id } });
+    if (req.file) {
+      const slipUrl = await cloudinary.upload(req.file.path);
+      value = { slipUrl };
+      // console.log(value, "value");
+    }
+    // const obj = Object.assign({}, req.body);
+    // console.log(obj);
+    console.log("body", req.body, "req.bod");
+    value.shippingAddress = req.body.shippingAddress;
+    value.orderId = req.body.orderId;
+    console.log(value, "value");
+    await Shipment.create(value, { where: { id: req.user.id } });
     res.status(200).json({ message: "success update" });
   } catch (err) {
     next(err);
   } finally {
-    if (req.file.profileImage) {
-      fs.unlinkSync(req.file.profileImage[0].path);
+    if (req.file.slipUrl) {
+      fs.unlinkSync(req.file.slipUrl[0].path);
     }
   }
 };

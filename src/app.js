@@ -33,13 +33,14 @@ app.use(
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use("/auth", authRote);
 app.use("/users", authenticateMiddleware, userRoute);
 app.use("/products", productRote);
 app.use("/baskets", authenticateMiddleware, basketsRote);
 app.use("/order", authenticateMiddleware, orderRote);
-app.use("/shipment", authenticateMiddleware);
+app.use("/shipment", authenticateMiddleware, shipmentRote);
 
 app.use(notFoundMiddleware);
 app.use(errorMiddleware);

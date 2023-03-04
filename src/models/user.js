@@ -34,7 +34,14 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false
       },
-      profileImage: DataTypes.STRING
+      profileImage: DataTypes.STRING,
+      roleEnum: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: true
+        }
+      }
     },
     {
       underscored: true

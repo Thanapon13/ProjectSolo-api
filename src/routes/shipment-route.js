@@ -1,7 +1,8 @@
-const shipmentController = require("../controllers/order-controller");
+const shipmentController = require("../controllers/shipment-controller");
 const express = require("express");
+const upload = require("../middleware/upload");
 
 const router = express.Router();
 
-router.post("/", shipmentController.createOrder);
+router.post("/", upload.single("slipUrl"), shipmentController.createShipment);
 module.exports = router;
