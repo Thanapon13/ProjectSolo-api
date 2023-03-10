@@ -31,6 +31,23 @@ module.exports = (sequelize, DataTypes) => {
       },
       onDelete: "RESTRICT"
     });
+    Order.hasOne(db.Shipment, {
+      foreignKey: {
+        name: "orderId",
+        allowNull: false
+      },
+      onDelete: "RESTRICT"
+    });
+    Order.hasMany(
+      db.OrderStatus,
+      {
+        foreignKey: "orderId",
+        allowNull: false
+      },
+      {
+        onDelete: "RESTRICT"
+      }
+    );
   };
   return Order;
 };

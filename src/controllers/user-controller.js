@@ -7,7 +7,6 @@ const { STATUS_ME } = require("../config/constant");
 const cloudinary = require("../utils/cloudinary");
 
 exports.updateProfileImage = async (req, res, next) => {
-  // console.log(req.file, "aaaaa");
   console.log(req.file, "aaa");
   try {
     let value;

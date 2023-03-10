@@ -35,12 +35,9 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false
       },
       profileImage: DataTypes.STRING,
-      roleEnum: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          notEmpty: true
-        }
+      isAdmin: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
       }
     },
     {
