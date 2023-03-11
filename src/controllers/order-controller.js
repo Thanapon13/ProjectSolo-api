@@ -22,10 +22,9 @@ exports.createOrder = async (req, res, next) => {
     console.log(createOrderData, "createOrderData");
 
     const order = await Order.create(createOrderData);
-    console.log(order, "aaaa");
+    // console.log(order, "aaaa");
     await Basket.destroy({
       where: {
-        // id: req.body.basketId
         id: req.body.id
       }
     });

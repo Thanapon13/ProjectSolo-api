@@ -1,5 +1,5 @@
 const fs = require("fs");
-const { Shipment } = require("../models");
+const { Shipment, OrderStatus } = require("../models");
 const cloudinary = require("../utils/cloudinary");
 
 exports.createShipment = async (req, res, next) => {
@@ -16,6 +16,11 @@ exports.createShipment = async (req, res, next) => {
     value.orderId = Number(req.body.orderId);
     console.log(value, "value");
     await Shipment.create(value);
+    await OrderStatus.create({
+      orderId: value.orderId,
+      status: "WAITING"
+    });
+    // console.log(OrderStatus, "OrderStatus");
     res.status(200).json({ message: "success update" });
   } catch (err) {
     next(err);

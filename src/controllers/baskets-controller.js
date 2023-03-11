@@ -50,11 +50,6 @@ exports.deleteProduct = async (req, res, next) => {
     if (!remove) {
       createError("this post was not found", 400);
     }
-    // console.log(remove);
-    // if (remove.userId !== req.user.id) {
-    //   createError("you have no permission to delete this post", 403);
-    // }
-    // console.log(remove);1451: Cannot delete or update a parent row: a foreign key constraint fails (`project_solo`.`baskets`, CONSTRAINT `baskets_ibfk_4` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE)
 
     await remove.destroy();
     res.status(200).json({ message: "Delete success" });

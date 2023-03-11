@@ -2,7 +2,7 @@ module.exports = (sequelize, DataTypes) => {
   const OrderStatus = sequelize.define(
     "OrderStatus",
     {
-      status: DataTypes.ENUM("confirmed", "cancelOrder")
+      status: DataTypes.ENUM("WAITING", "CONFIRMED", "CANCELORDER")
     },
     { underscored: true }
   );

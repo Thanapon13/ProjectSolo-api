@@ -38,7 +38,8 @@ module.exports = (sequelize, DataTypes) => {
       isAdmin: {
         type: DataTypes.BOOLEAN,
         defaultValue: false
-      }
+      },
+      lineToken: DataTypes.STRING
     },
     {
       underscored: true
