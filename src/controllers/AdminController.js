@@ -77,13 +77,15 @@ exports.deleteOrderAdmin = async (req, res, next) => {
   try {
     const removeOrder = await Order.findOne({
       where: {
-        productId: req.params.productId
-      }
+        id: req.body.id
+      },
+      include: [{ model: OrderStatus }]
     });
+    console.log(removeOrder, "removeOrder");
     if (!removeOrder) {
       createError("this post was not found", 400);
     }
-    await removeOrder.destroy();
+    // await removeOrder.destroy();
     res.status(200).json({ message: "Delete success" });
   } catch (err) {
     next(err);
