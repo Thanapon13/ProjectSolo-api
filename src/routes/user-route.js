@@ -7,6 +7,8 @@ const userController = require("../controllers/user-controller");
 
 const router = express.Router();
 
+router.get("/userOrder", authenticate, userController.userOrderHistorys);
+
 router.patch(
   "/",
   multer.single("profileImage"),
@@ -14,4 +16,5 @@ router.patch(
 );
 
 router.patch("/info", authenticate, userController.updateUserInfo);
+
 module.exports = router;

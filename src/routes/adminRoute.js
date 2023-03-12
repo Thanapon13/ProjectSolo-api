@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get("/adminOrder", authenticate, AdminController.adminOrder);
 
-router.get("/adminOrderDelete", authenticate, AdminController.deleteOrderAdmin);
+router.delete("/:orderId", authenticate, AdminController.deleteOrderAdmin);
 
 router.patch("/statusUpdateConfirmed", AdminController.updateStatusConfirmed);
 

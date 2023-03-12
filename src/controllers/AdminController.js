@@ -1,3 +1,4 @@
+const { where } = require("sequelize");
 const { User, Products, OrderStatus, Order, Shipment } = require("../models");
 
 const { sendLinenoti } = require("../service/linenoti-service");
@@ -13,7 +14,7 @@ exports.adminOrder = async (req, res, next) => {
         { model: Shipment }
       ]
     });
-    // console.log("adminOrder", adminOrder);
+    console.log("adminOrder", adminOrder);
 
     res.status(200).json(adminOrder);
   } catch (err) {
@@ -77,15 +78,19 @@ exports.deleteOrderAdmin = async (req, res, next) => {
   try {
     const removeOrder = await Order.findOne({
       where: {
-        id: req.body.id
+        id: req.params.orderId
       },
-      include: [{ model: OrderStatus }]
+      include: [{ model: OrderStatus }, { model: Shipment }]
     });
-    console.log(removeOrder, "removeOrder");
-    if (!removeOrder) {
-      createError("this post was not found", 400);
-    }
-    // await removeOrder.destroy();
+    // console.log(removeOrder, "removeOrder");
+
+    // const pureRemoveOrder = JSON.parse(JSON.stringify(removeOrder));
+    // console.log(pureRemoveOrder, "pureRemoveOrder");
+    // if (!removeOrder) {
+    //   createError("this post was not found", 400);
+    // }
+
+    await removeOrder.destroy();
     res.status(200).json({ message: "Delete success" });
   } catch (err) {
     next(err);

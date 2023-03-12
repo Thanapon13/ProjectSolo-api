@@ -1,5 +1,5 @@
+const { User, Products, Order, OrderStatus, Shipment } = require("../models");
 const fs = require("fs");
-const { User } = require("../models");
 
 const cloudinary = require("../utils/cloudinary");
 
@@ -33,11 +33,31 @@ exports.updateProfileImage = async (req, res, next) => {
 exports.updateUserInfo = async (req, res, next) => {
   try {
     const value = req.body;
-    console.log("-----------------------------> ", req.body);
+    // console.log("-----------------------------> ", req.body);
     await User.update(value, {
       where: { id: req.user.dataValues.id }
     });
     res.status(200).json(value);
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.userOrderHistorys = async (req, res, next) => {
+  try {
+    const userOrder = await Order.findAll({
+      include: [
+        {
+          model: Products
+        },
+        { model: User },
+        { model: OrderStatus },
+        { model: Shipment }
+      ]
+    });
+    console.log("userOrder", userOrder);
+
+    res.status(200).json(userOrder);
   } catch (err) {
     next(err);
   }

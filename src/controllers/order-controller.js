@@ -1,4 +1,5 @@
 const { Order, Basket } = require("../models");
+const { sendLinenoti } = require("../service/linenoti-service");
 
 exports.createOrder = async (req, res, next) => {
   try {
@@ -19,10 +20,11 @@ exports.createOrder = async (req, res, next) => {
       userId: pureBasKetData.userId,
       productId: pureBasKetData.productId
     };
-    console.log(createOrderData, "createOrderData");
+    // console.log(createOrderData, "createOrderData");
 
     const order = await Order.create(createOrderData);
     // console.log(order, "aaaa");
+    sendLinenoti(1, "กรุณารอการตรวจสอบการชำระเงิน");
     await Basket.destroy({
       where: {
         id: req.body.id

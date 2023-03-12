@@ -50,7 +50,6 @@ exports.deleteProduct = async (req, res, next) => {
     if (!remove) {
       createError("this post was not found", 400);
     }
-
     await remove.destroy();
     res.status(200).json({ message: "Delete success" });
   } catch (err) {
@@ -60,7 +59,7 @@ exports.deleteProduct = async (req, res, next) => {
 
 exports.addQuantity = async (req, res, next) => {
   try {
-    console.log(req.body);
+    // console.log(req.body);
     const { quantity } = await Basket.findOne({
       where: {
         productId: req.body.productId
@@ -86,7 +85,7 @@ exports.addQuantity = async (req, res, next) => {
 
 exports.minusQuantity = async (req, res, next) => {
   try {
-    console.log(req.body);
+    // console.log(req.body);
     const { quantity } = await Basket.findOne({
       where: {
         productId: req.body.productId
